@@ -14,11 +14,11 @@ public class RandomGraphGenerator {
     /*
     * Class to generate Random Graphs
     * */
-    public static GeometricGraph generate(String fileName, int n, double lbExp, double ubExp){
+    public static void generate(String fileName, int n, double lbExp, double ubExp){
 
         double lowerBoundLimit = 0.0;
         double upperBoundLimit = 1.0;
-        double TOLERANCE = 0.000001;
+        double TOLERANCE = 0.00001;
         List<Vertex> lcc = new ArrayList<>();
         GeometricGraph graph=null;
         while (true) {
@@ -47,12 +47,7 @@ public class RandomGraphGenerator {
             }
         }
         System.out.println("LCC Size:   "+lcc.size());
-
-
-
-
-
-        return graph;
+        //return graph;
     }
 
     public static GeometricGraph convertEdgesToGraphs(List<Edge> edges, int n){
@@ -114,7 +109,6 @@ public class RandomGraphGenerator {
                 }
             }
         }
-        //GeometricGraph geometricGraph=new GeometricGraph(n,adjList);
         return edges;
     }
 

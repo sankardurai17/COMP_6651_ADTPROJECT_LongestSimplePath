@@ -12,6 +12,10 @@ public class Vertex implements Comparable<Vertex> {
 
     public Vertex parent;
 
+    public Vertex(int id){
+        this.id=id;
+    }
+
     public Vertex(int id, double x, double y) {
        this.id=id;
         this.x = x;

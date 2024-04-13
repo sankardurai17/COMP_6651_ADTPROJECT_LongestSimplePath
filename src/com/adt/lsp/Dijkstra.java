@@ -8,8 +8,7 @@ import java.util.*;
 
 public class Dijkstra {
 
-    public static int findLSPUsingDijkstra(GeometricGraph graph){
-        List<Vertex> lcc = LongestConnectedComponent.getLargestConnectedComponent(graph);
+    public static int findLSPUsingDijkstra(GeometricGraph graph,List<Vertex> lcc){
         int max_depth=Integer.MIN_VALUE;
         Map<Integer,Integer> maxList=new HashMap<>();
         int mainSourceOfLSP=-1;

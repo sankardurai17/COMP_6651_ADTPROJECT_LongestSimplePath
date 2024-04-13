@@ -7,10 +7,7 @@ import java.util.*;
 
 public class AStarAlgorithm {
 
-    public static List<Vertex> findLongestSimplePath(GeometricGraph graph) {
-        List<Vertex> lcc = LongestConnectedComponent.getLargestConnectedComponent(graph);
-        //System.out.println("\n\nSize of LCC"+lcc.size());
-
+    public static List<Vertex> findLongestSimplePath(GeometricGraph graph, List<Vertex> lcc) {
 
         int maxDepth = Integer.MIN_VALUE;
         List<Vertex> longestPath = null;
@@ -20,7 +17,7 @@ public class AStarAlgorithm {
         int count=0;
         for (int i = 0; i < lcc.size(); i++) {
             for (int j = i + 1; j < lcc.size(); j++) {
-                //List<Vertex> path = AStarLSP(graph, lcc.get(i), lcc.get(j));
+                //List<Vert> path = AStarLSP(graph, lcc.get(i), lcc.get(j));
                 List<Vertex> path = AStarLSP(graph, lcc.get(i), lcc.get(j));
 
                 if (path.size() > maxDepth) {
