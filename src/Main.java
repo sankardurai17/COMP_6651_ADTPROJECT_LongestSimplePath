@@ -4,52 +4,57 @@ import com.adt.lsp.model.LongestConnectedComponent;
 import com.adt.lsp.model.Vertex;
 
 import java.util.List;
+//import com.adt.lsp.model.OwnAlgorithmV4;
+
+
 
 public class Main {
     public static void main(String[] args) {
-        //one time activity run only once and after that comment this line!
-        //generateRandomGraphs();
-        calculateMetricsForRandomGraph1();
-        //calculateMetricsForOnlineGraph1();
+        System.out.println("\n-------Random Graph 1----------");
+        calculateMetricsForRandomGraph("temp1.edges",300,0.9,0.95);
+
+        System.out.println("\n-------Random Graph 2-----------");
+        calculateMetricsForRandomGraph("temp2.edges",400,0.8,0.9);
+
+        System.out.println("\n--------Random Graph 3-----------");
+        calculateMetricsForRandomGraph("temp3.edges",500,0.7,0.8);
+
+        System.out.println("\n----------Online Graph 1------------");
+        calculateMetricsForOnlineGraph("DSJC500-5.mtx",500);
+
+        System.out.println("\n----------Online Graph 2-------------");
+        calculateMetricsForOnlineGraph("inf-euroroad.edges",1200);
+
+        System.out.println("\n------------Online Graph 3------------");
+        calculateMetricsForOnlineGraph("inf-power.mtx",5000);
+
     }
 
-    public static void generateRandomGraphs(){
-        RandomGraphGenerator.generate("temp1.edges",300,0.9,0.95);
-        RandomGraphGenerator.generate("temp2.edges",400,0.8,0.9);
-        RandomGraphGenerator.generate("temp3.edges",500,0.7,0.8);
-
-    }
-
-
-
-    public static void calculateMetricsForRandomGraph1(){
-        //RandomGraphGenerator.generate("temp1.edges",300,0.9,0.95);
-        GeometricGraph graph=Utility.randomFileToGraphConverter("temp2.edges",400);
+    public static void calculateMetricsForRandomGraph(String fileName, int n, double lowerBound, double upperBound){
+        GeometricGraph graph= RandomGraphGenerator.generate(fileName,n,lowerBound,upperBound);
         List<Vertex> lcc= LongestConnectedComponent.getLargestConnectedComponent(graph);
-        //System.out.println("LCCSize: "+lcc.size());
         Metrics.calculateMetrics(graph,lcc);
-        int lmaxDFS= DFS.LongestSimplePath(graph,lcc);
+
+        int lmaxDFS= DFS.LongestSimplePath(graph);
         System.out.println("Maximum Depth DFS:"+ lmaxDFS);
 
-        //int maxDepthDijkstra=Dijkstra.findLSPUsingDijkstra(graph);
-        //System.out.println("Maximum Depth Dijkstra:"+maxDepthDijkstra);
+        int maxDepthDijkstra=Dijkstra.findLSPUsingDijkstra(graph);
+        System.out.println("Maximum Depth Dijkstra:"+maxDepthDijkstra);
 
-        List<Vertex> verts= AStarAlgorithm.findLongestSimplePath(graph,lcc);
+        List<Vertex> verts= AStarAlgorithm.findLongestSimplePath(graph);
         System.out.println("No of Edges for A*"+(verts.size()-1));
+
     }
 
-    //TODO create a utility to loadEdgesFromGraphFile.
-    //TODO That Utility should be more generic way of loading geometric as well as online graph!
-    public static void calculateMetricsForOnlineGraph1(){
-        GeometricGraph graph=Utility.onlineFileToGraphConverter("DSJC500-5.mtx",500);
 
+    public static void calculateMetricsForOnlineGraph(String fileName, int n){
+        GeometricGraph graph=Utility.onlineFileToGraphConverter(fileName,n);
         List<Vertex> lcc= LongestConnectedComponent.getLargestConnectedComponent(graph);
-        //System.out.println("LCCSize: "+lcc.size());
         Metrics.calculateMetrics(graph,lcc);
-        int lmaxDFS= DFS.LongestSimplePath(graph,lcc);
+        int lmaxDFS= DFS.LongestSimplePath(graph);
         System.out.println("Maximum Depth DFS:"+ lmaxDFS);
 
-        int maxDepthDijkstra=Dijkstra.findLSPUsingDijkstra(graph,lcc);
+        int maxDepthDijkstra=Dijkstra.findLSPUsingDijkstra(graph);
         System.out.println("Maximum Depth Dijkstra:"+maxDepthDijkstra);
 
     }
