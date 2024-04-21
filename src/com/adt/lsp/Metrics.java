@@ -8,17 +8,16 @@ import java.util.Map;
 
 public class Metrics {
     public static void calculateMetrics(GeometricGraph graph, List<Vertex> lcc){
-            // Metrics
             int n = graph.getN();
             int vlccSize = lcc.size();
             int deltaLCC = calculateDeltaLCC(graph, lcc);
             double kLCC = calculateAverageDegree(graph, lcc);
             // Output metrics
             System.out.println("Metrics:");
-            System.out.println("n: " + n);
-            System.out.println("|VLCC|: " + vlccSize);
-            System.out.println("∆(LCC): " + deltaLCC);
-            System.out.println("k(LCC): " + kLCC);
+            System.out.println("Number of nodes in the graph, n: " + n);
+            System.out.println("Number of nodes in the largest connected component, |VLCC|: " + vlccSize);
+            System.out.println("The maximum degree of any node in ∥LCC∥, ∆(LCC): " + deltaLCC);
+            System.out.println("The average degree of nodes in ∥LCC∥, k(LCC): " + kLCC);
         }
 
 
