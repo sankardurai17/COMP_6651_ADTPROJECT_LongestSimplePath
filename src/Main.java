@@ -36,13 +36,13 @@ public class Main {
         Metrics.calculateMetrics(graph,lcc);
 
         int lmaxDFS= DFS.LongestSimplePath(graph);
-        System.out.println("Maximum Depth DFS:"+ lmaxDFS);
+        System.out.println("Length of lsp of DFS:"+ lmaxDFS);
 
         int maxDepthDijkstra=Dijkstra.findLSPUsingDijkstra(graph);
-        System.out.println("Maximum Depth Dijkstra:"+maxDepthDijkstra);
+        System.out.println("Length of lsp of Dijkstra:"+maxDepthDijkstra);
 
         List<Vertex> verts= AStarAlgorithm.findLongestSimplePath(graph);
-        System.out.println("No of Edges for A*"+(verts.size()-1));
+        System.out.println("Length of lsp of A*"+(verts.size()-1));
 
     }
 
@@ -52,10 +52,10 @@ public class Main {
         List<Vertex> lcc= LongestConnectedComponent.getLargestConnectedComponent(graph);
         Metrics.calculateMetrics(graph,lcc);
         int lmaxDFS= DFS.LongestSimplePath(graph);
-        System.out.println("Maximum Depth DFS:"+ lmaxDFS);
+        System.out.println("Length of lsp ofDFS:"+ lmaxDFS);
 
         int maxDepthDijkstra=Dijkstra.findLSPUsingDijkstra(graph);
-        System.out.println("Maximum Depth Dijkstra:"+maxDepthDijkstra);
+        System.out.println("Length of lsp of Dijkstra:"+maxDepthDijkstra);
 
     }
 }
