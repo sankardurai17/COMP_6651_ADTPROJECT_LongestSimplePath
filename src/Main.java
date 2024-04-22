@@ -4,8 +4,6 @@ import com.adt.lsp.model.LongestConnectedComponent;
 import com.adt.lsp.model.Vertex;
 
 import java.util.List;
-//import com.adt.lsp.model.OwnAlgorithmV4;
-
 
 
 public class Main {
@@ -38,11 +36,14 @@ public class Main {
         int lmaxDFS= DFS.LongestSimplePath(graph);
         System.out.println("Length of lsp of DFS:"+ lmaxDFS);
 
-        int maxDepthDijkstra=Dijkstra.findLSPUsingDijkstra(graph);
-        System.out.println("Length of lsp of Dijkstra:"+maxDepthDijkstra);
+        int lmaxDijkstra=Dijkstra.findLSPUsingDijkstra(graph);
+        System.out.println("Length of lsp of Dijkstra:"+lmaxDijkstra);
 
-        List<Vertex> verts= AStarAlgorithm.findLongestSimplePath(graph);
-        System.out.println("Length of lsp of A*"+(verts.size()-1));
+        int lmaxAstar= AStarAlgorithm.findLongestSimplePath(graph);
+        System.out.println("Length of lsp of A*"+lmaxAstar);
+
+        int lmaxBeamSearchHeuristic=BeamSearchWithHeuristic.findLongestSimplePath(graph);
+        System.out.println("Length of lsp of BeamSearchWithHeuristic: "+lmaxBeamSearchHeuristic);
 
     }
 
@@ -56,6 +57,5 @@ public class Main {
 
         int maxDepthDijkstra=Dijkstra.findLSPUsingDijkstra(graph);
         System.out.println("Length of lsp of Dijkstra:"+maxDepthDijkstra);
-
     }
 }

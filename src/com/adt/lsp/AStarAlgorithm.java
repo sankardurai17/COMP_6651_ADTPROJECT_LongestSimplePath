@@ -6,8 +6,7 @@ import com.adt.lsp.model.Vertex;
 import java.util.*;
 
 public class AStarAlgorithm {
-
-    public static List<Vertex> findLongestSimplePath(GeometricGraph graph) {
+    public static int findLongestSimplePath(GeometricGraph graph) {
         List<Vertex> lcc = LongestConnectedComponent.getLargestConnectedComponent(graph);
         int maxDepth = Integer.MIN_VALUE;
         List<Vertex> longestPath = null;
@@ -27,8 +26,7 @@ public class AStarAlgorithm {
                 }
             }
         }
-        System.out.println("Longest Path Source: "+longestPath.get(longestPath.size()-1));
-        return longestPath;
+        return longestPath.size()-1;
 
     }
 
