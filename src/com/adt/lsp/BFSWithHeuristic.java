@@ -6,7 +6,7 @@ import com.adt.lsp.model.Vertex;
 
 import java.util.*;
 
-public class BeamSearchWithHeuristic {
+public class BFSWithHeuristic {
 
     public static int findLongestSimplePath(GeometricGraph graph) {
         List<Vertex> largestComponent = LongestConnectedComponent.getLargestConnectedComponent(graph);
@@ -19,7 +19,7 @@ public class BeamSearchWithHeuristic {
                 if(sourceVertex.id==goal.id){
                     continue;
                 }
-                List<Vertex> path = beamSearchFromSource(graph, sourceVertex, goal);
+                List<Vertex> path = bfsWithHeuristic(graph, sourceVertex, goal);
                 if (path.size() > longestPath.size()) {
                     longestPath = path;
                 }
@@ -29,7 +29,7 @@ public class BeamSearchWithHeuristic {
         return longestPath.size()-1;
     }
 
-    private static List<Vertex> beamSearchFromSource(GeometricGraph graph, Vertex sourceVertex, Vertex goal) {
+    private static List<Vertex> bfsWithHeuristic(GeometricGraph graph, Vertex sourceVertex, Vertex goal) {
         Set<Vertex> visited = new HashSet<>();
         List<Vertex> longestPath = new ArrayList<>();
         Queue<List<Vertex>> queue = new PriorityQueue<>(new PathComparator(goal));

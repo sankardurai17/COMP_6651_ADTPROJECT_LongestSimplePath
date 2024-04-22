@@ -9,13 +9,13 @@ import java.util.*;
 import static java.lang.Math.max;
 
 public class DFS {
-    private static void depthFirstSearch(GeometricGraph graph, Vertex vertex, Set<Vertex> visited, int depth, Map<Vertex, Integer> depthMap) {
+    private static void dfs(GeometricGraph graph, Vertex vertex, Set<Vertex> visited, int depth, Map<Vertex, Integer> depthMap) {
         visited.add(vertex);
         depthMap.put(vertex, depth);
 
         for (Vertex neighbor : graph.getAdjacencyList().getOrDefault(vertex, Collections.emptyList())) {
             if (!visited.contains(neighbor)) {
-                depthFirstSearch(graph, neighbor, visited, depth + 1, depthMap);
+                dfs(graph, neighbor, visited, depth + 1, depthMap);
             }
         }
 
@@ -34,7 +34,7 @@ public class DFS {
         return vertexMaxDepth;
     }
 
-    public static int LongestSimplePath(GeometricGraph graph) {
+    public static int lspWithDFS(GeometricGraph graph) {
         int lmax = 0;
 
         List<Vertex> vlccList = LongestConnectedComponent.getLargestConnectedComponent(graph);
@@ -46,14 +46,14 @@ public class DFS {
 
             Map<Vertex, Integer> depthMap = new HashMap<>();
             Set<Vertex> visited = new HashSet<>();
-            depthFirstSearch(graph, randomVertex, visited, 0, depthMap);
+            dfs(graph, randomVertex, visited, 0, depthMap);
 
             Vertex vertexMaxDepth = findVertexAtMaxDepth(depthMap);
             int vDepth = depthMap.get(vertexMaxDepth);
             depthMap.clear();
             visited.clear();
 
-            depthFirstSearch(graph, vertexMaxDepth, visited, 0, depthMap);
+            dfs(graph, vertexMaxDepth, visited, 0, depthMap);
             Vertex vertexMaxDepth2 = findVertexAtMaxDepth(depthMap);
             int wDepth = depthMap.get(vertexMaxDepth2);
 

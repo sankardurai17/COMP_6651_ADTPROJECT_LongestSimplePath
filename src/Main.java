@@ -33,7 +33,7 @@ public class Main {
         List<Vertex> lcc= LongestConnectedComponent.getLargestConnectedComponent(graph);
         Metrics.calculateMetrics(graph,lcc);
 
-        int lmaxDFS= DFS.LongestSimplePath(graph);
+        int lmaxDFS= DFS.lspWithDFS(graph);
         System.out.println("Length of lsp of DFS:"+ lmaxDFS);
 
         int lmaxDijkstra=Dijkstra.findLSPUsingDijkstra(graph);
@@ -42,8 +42,8 @@ public class Main {
         int lmaxAstar= AStarAlgorithm.findLongestSimplePath(graph);
         System.out.println("Length of lsp of A*"+lmaxAstar);
 
-        int lmaxBeamSearchHeuristic=BeamSearchWithHeuristic.findLongestSimplePath(graph);
-        System.out.println("Length of lsp of BeamSearchWithHeuristic: "+lmaxBeamSearchHeuristic);
+        int lmaxBFSWithHeuristic= BFSWithHeuristic.findLongestSimplePath(graph);
+        System.out.println("Length of lsp of BFSWithHeuristic: "+lmaxBFSWithHeuristic);
 
     }
 
@@ -52,7 +52,7 @@ public class Main {
         GeometricGraph graph=Utility.onlineFileToGraphConverter(fileName,n);
         List<Vertex> lcc= LongestConnectedComponent.getLargestConnectedComponent(graph);
         Metrics.calculateMetrics(graph,lcc);
-        int lmaxDFS= DFS.LongestSimplePath(graph);
+        int lmaxDFS= DFS.lspWithDFS(graph);
         System.out.println("Length of lsp ofDFS:"+ lmaxDFS);
 
         int maxDepthDijkstra=Dijkstra.findLSPUsingDijkstra(graph);
