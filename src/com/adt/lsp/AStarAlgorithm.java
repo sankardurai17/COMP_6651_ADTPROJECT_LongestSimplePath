@@ -6,35 +6,27 @@ import com.adt.lsp.model.Vertex;
 import java.util.*;
 
 public class AStarAlgorithm {
-
-    public static List<Vertex> findLongestSimplePath(GeometricGraph graph) {
+    public static int findLongestSimplePath(GeometricGraph graph) {
         List<Vertex> lcc = LongestConnectedComponent.getLargestConnectedComponent(graph);
-        //System.out.println("\n\nSize of LCC"+lcc.size());
-
-
         int maxDepth = Integer.MIN_VALUE;
         List<Vertex> longestPath = null;
-        int s=-1;
-        int d=-1;
-        //List<Integer> visited=new ArrayList<>();
         int count=0;
         for (int i = 0; i < lcc.size(); i++) {
-            for (int j = i + 1; j < lcc.size(); j++) {
-                //List<Vertex> path = AStarLSP(graph, lcc.get(i), lcc.get(j));
+            for (int j = i+1; j < lcc.size(); j++) {
+                if(lcc.get(i).id==lcc.get(j).id){
+                    continue;
+                }
+
                 List<Vertex> path = AStarLSP(graph, lcc.get(i), lcc.get(j));
 
                 if (path.size() > maxDepth) {
                     count++;
                     maxDepth = path.size();
                     longestPath = path;
-                    //System.out.println("^^^^^\nEach itr path: "+path);
                 }
             }
         }
-        System.out.println("Max_Depth for A*- "+maxDepth);
-        System.out.println("Longest Path Source: "+longestPath.get(longestPath.size()-1));
-        //System.out.println("Count: "+count);
-        return longestPath;
+        return longestPath.size()-1;
 
     }
 
@@ -51,24 +43,26 @@ public class AStarAlgorithm {
 
     public static void InitializeSingleSourceMAX(GeometricGraph graph, Vertex s) {
         for (Vertex v : graph.getAdjacencyList().keySet()) {
-            v.d = Integer.MIN_VALUE; // Initialize distances to smallest possible value for longest path
+            v.d = Integer.MIN_VALUE;
             v.parent = null;
         }
         s.d = 0;
+        s.parent=null;
     }
 
     public static void RelaxMAX(Vertex u, Vertex v) {
-        if (u.d + 1 > v.d) { // Check for longer path
-            v.d = u.d + 1; // Update distance to longer path
-            v.parent = u; // Update predecessor
+        if (u.d + 1 > v.d) {
+            v.d = u.d + 1;
+            v.parent = u;
         }
     }
 
     static List<Vertex> AStarLSP(GeometricGraph G, Vertex s, Vertex d) {
         InitializeSingleSourceMAX(G, s);
+        Set<Vertex> visited = new HashSet<>();
 
         for (Vertex v : G.getAdjacencyList().keySet()) {
-            v.h = distance(v,d); // Negative of Euclidean distance
+            v.h = distance(v,d);
         }
 
         Set<Vertex> S = new HashSet<>();
@@ -80,9 +74,9 @@ public class AStarAlgorithm {
 
         while (!Q.isEmpty()) {
             Vertex u = Q.extractMax();
-            S.add(u);
+            visited.add(u);
             for (Vertex v : G.getAdjacencyList().get(u)) {
-                if (u.parent != v && !S.contains(v)) {
+                if (u.parent != v && !visited.contains(v)) {
                     RelaxMAX(u, v);
                     Q.insert(v, v.d + v.h);
                 }

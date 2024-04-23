@@ -12,8 +12,8 @@ import java.util.*;
 public class RandomGraphGenerator {
 
     /*
-    * Class to generate Random Graphs
-    * */
+     * Class to generate Random Graphs
+     * */
     public static GeometricGraph generate(String fileName, int n, double lbExp, double ubExp){
 
         double lowerBoundLimit = 0.0;
@@ -21,8 +21,10 @@ public class RandomGraphGenerator {
         double TOLERANCE = 0.000001;
         List<Vertex> lcc = new ArrayList<>();
         GeometricGraph graph=null;
+        double r=0.0;
         while (true) {
             double mid = (lowerBoundLimit + upperBoundLimit) / 2;
+            r=mid;
             List<Edge> edges=generateGeometricGraph(n,mid);
             graph=convertEdgesToGraphs(edges,n);
             lcc = LongestConnectedComponent.getLargestConnectedComponent(graph);
@@ -46,12 +48,7 @@ public class RandomGraphGenerator {
                 break;
             }
         }
-        System.out.println("LCC Size:   "+lcc.size());
-
-
-
-
-
+        System.out.println("r: "+r);
         return graph;
     }
 
@@ -61,27 +58,35 @@ public class RandomGraphGenerator {
             Vertex u= edge.u;
             Vertex v= edge.v;
             if(adjList.containsKey(u)){
-                List<Vertex> neighbors= adjList.get(u);
+                List<Vertex> neighboru=adjList.get(u);
+                neighboru.add(v);
+                adjList.put(u,neighboru);
+                if(adjList.containsKey(v)){
+                    List<Vertex> neighborsva=adjList.get(v);
+                    neighborsva.add(u);
+                    adjList.put(v,neighborsva);
+                }
+                else{
+                    List<Vertex> neighborsv=new ArrayList<>();
+                    neighborsv.add(u);
+                    adjList.put(v,neighborsv);
+                }
+
+            }
+            else{
+                List<Vertex> neighbors=new ArrayList<>();
                 neighbors.add(v);
                 adjList.put(u,neighbors);
                 if(adjList.containsKey(v)){
-                    List<Vertex> neighbors1=adjList.get(v);
-                    neighbors1.add(u);
-                    adjList.put(v,neighbors1);
+                    List<Vertex> neighborsva=adjList.get(v);
+                    neighborsva.add(u);
+                    adjList.put(v,neighborsva);
                 }
                 else{
-                    List<Vertex> neighbors1=new ArrayList<>();
-                    neighbors1.add(u);
-                    adjList.put(v,neighbors1);
+                    List<Vertex> neighborsv=new ArrayList<>();
+                    neighborsv.add(u);
+                    adjList.put(v,neighborsv);
                 }
-            }
-            else {
-                List<Vertex> neighbors = new ArrayList<>();
-                neighbors.add(v);
-                adjList.put(u, neighbors);
-                List<Vertex> neighbors2=new ArrayList<>();
-                neighbors2.add(u);
-                adjList.put(v,neighbors2);
             }
         }
         /**/
@@ -93,7 +98,6 @@ public class RandomGraphGenerator {
         Vertex[] vertices=new Vertex[n];
         List<Edge> edges=new ArrayList<>();
         Random random=new Random();
-        Map<Vertex,List<Vertex>> adjList=new HashMap<>();
         for(int i=0;i<n;i++){
             double x=random.nextDouble();
             double y=random.nextDouble();
@@ -114,7 +118,6 @@ public class RandomGraphGenerator {
                 }
             }
         }
-        //GeometricGraph geometricGraph=new GeometricGraph(n,adjList);
         return edges;
     }
 
@@ -133,3 +136,4 @@ public class RandomGraphGenerator {
 
 
 }
+

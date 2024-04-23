@@ -1,7 +1,7 @@
 package com.adt.lsp.model;
 
 import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GeometricGraph {
     int n;
@@ -16,20 +16,24 @@ public class GeometricGraph {
         this.adjacencyList=adjacencyList;
     }
 
+    public GeometricGraph(GeometricGraph graph){
+        this.n = graph.getN(); // Copy number of vertices
+
+        // Deep copy adjacency list using a new HashMap
+        this.adjacencyList = new HashMap<>();
+        for (Map.Entry<Vertex, List<Vertex>> entry : graph.getAdjacencyList().entrySet()) {
+            Vertex newVertex = new Vertex(entry.getKey()); // Create new Vertex object
+            List<Vertex> copiedNeighbors = new ArrayList<>(entry.getValue()); // Deep copy neighbor list
+            adjacencyList.put(newVertex, copiedNeighbors);
+        }
+    }
+
     public int getN() {
         return n;
     }
 
-    public void setN(int n) {
-        this.n = n;
-    }
-
     public Map<Vertex, List<Vertex>> getAdjacencyList() {
         return adjacencyList;
-    }
-
-    public void setAdjacencyList(Map<Vertex, List<Vertex>> adjacencyList) {
-        this.adjacencyList = adjacencyList;
     }
 
     @Override

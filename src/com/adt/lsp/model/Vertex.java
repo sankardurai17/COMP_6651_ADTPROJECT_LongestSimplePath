@@ -12,8 +12,20 @@ public class Vertex implements Comparable<Vertex> {
 
     public Vertex parent;
 
+    public Vertex(int id){
+        this.id=id;
+    }
+
+    public Vertex(Vertex v){
+        this.id= v.id;
+        this.x=v.x;
+        this.y=v.y;
+        this.parent=null;
+    }
+
+
     public Vertex(int id, double x, double y) {
-       this.id=id;
+        this.id=id;
         this.x = x;
         this.y = y;
         this.parent=null;
@@ -27,16 +39,21 @@ public class Vertex implements Comparable<Vertex> {
         this.d = d;
     }
 
+    public int getId() {
+        return id;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Vertex vertex)) return false;
-        return id == vertex.id && Double.compare(x, vertex.x) == 0 && Double.compare(y, vertex.y) == 0;
+        return id == vertex.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, x, y);
+        return Objects.hash(id);
     }
 
     @Override
@@ -50,11 +67,11 @@ public class Vertex implements Comparable<Vertex> {
 
     @Override
     public int compareTo(Vertex other) {
-        if(this.h<other.h){
+        if(this.d<other.d){
             return -1;
         }
         else{
-            if(this.h==other.h){
+            if(this.d==other.d){
                 return 0;
             }
             else{

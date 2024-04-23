@@ -14,12 +14,13 @@ public class LongestConnectedComponent {
                 List<Vertex> component = new ArrayList<>();
                 dfs(adjacencyList, visited, vertex, component);
                 if (component.size() > maxSize) {
-                   // System.out.println("Component node Inside loop: "+component.get(0)+"Component size: "+component.size()+"Max size: "+maxSize);
+                    // System.out.println("Component node Inside loop: "+component.get(0)+"Component size: "+component.size()+"Max size: "+maxSize);
                     largestComponent = component;
                     maxSize = component.size();
                 }
             }
         }
+        Collections.sort(largestComponent, Comparator.comparing(Vertex::getId));
         return largestComponent;
     }
 
