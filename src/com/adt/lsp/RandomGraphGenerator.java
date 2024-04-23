@@ -21,8 +21,10 @@ public class RandomGraphGenerator {
         double TOLERANCE = 0.000001;
         List<Vertex> lcc = new ArrayList<>();
         GeometricGraph graph=null;
+        double r=0.0;
         while (true) {
             double mid = (lowerBoundLimit + upperBoundLimit) / 2;
+            r=mid;
             List<Edge> edges=generateGeometricGraph(n,mid);
             graph=convertEdgesToGraphs(edges,n);
             lcc = LongestConnectedComponent.getLargestConnectedComponent(graph);
@@ -46,6 +48,7 @@ public class RandomGraphGenerator {
                 break;
             }
         }
+        System.out.println("r: "+r);
         return graph;
     }
 
